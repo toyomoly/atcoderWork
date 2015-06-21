@@ -2,16 +2,19 @@
 using namespace std;
 int main()
 {
-    // 整数の入力
-    int a;
-    cin >> a;
-    // スペース区切りの整数の入力
-    int b,c;
-    cin >> b >> c;
-    // 文字列の入力
-    string s;
-    cin >> s;
-    // 出力
-    cout << (a+b+c) << " " << s << endl;
+    int N, R=0, B=0;
+    cin >> N;
+
+    for (int i=0; i<N; i++) {
+        string s;
+        cin >> s;
+        
+        for (int j=0; j<N; j++) {
+            if (s[j] == 'R') R++;
+            if (s[j] == 'B') B++;
+        }
+    }
+    
+    cout << ((R > B) ? "TAKAHASHI" : (R < B) ? "AOKI" : "DRAW") << endl;
     return 0;
 }
