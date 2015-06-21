@@ -11,7 +11,7 @@ int main()
         
         for (int j=0; j<N; j++) {
             if (s[j] == 'R') R++;
-            if (s[j] == 'B') B++;
+            else if (s[j] == 'B') B++;
         }
     }
     
