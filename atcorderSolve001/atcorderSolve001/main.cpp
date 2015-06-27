@@ -2,19 +2,30 @@
 using namespace std;
 int main()
 {
-    int N, R=0, B=0;
-    cin >> N;
+    int N, A, B, E=0, W=0;
+    cin >> N >> A >> B;
 
     for (int i=0; i<N; i++) {
         string s;
         cin >> s;
         
-        for (int j=0; j<N; j++) {
-            if (s[j] == 'R') R++;
-            else if (s[j] == 'B') B++;
-        }
+        int d;
+        cin >> d;
+        
+        if (d < A) d = A;
+        else if (d > B) d = B;
+
+        if (s == "East") E += d;
+        else W += d;
     }
     
-    cout << ((R > B) ? "TAKAHASHI" : (R < B) ? "AOKI" : "DRAW") << endl;
+    if (E > W) {
+        cout << "East " << E - W << endl;
+    } else if (W > E) {
+        cout << "West " << W - E << endl;
+    } else {
+        cout << "0" << endl;
+    }
+    
     return 0;
 }
