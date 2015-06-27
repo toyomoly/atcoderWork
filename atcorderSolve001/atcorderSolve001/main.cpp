@@ -2,19 +2,14 @@
 using namespace std;
 int main()
 {
-    int N, R=0, B=0;
+    string S;
+    int N;
+    cin >> S;
     cin >> N;
 
-    for (int i=0; i<N; i++) {
-        string s;
-        cin >> s;
-        
-        for (int j=0; j<N; j++) {
-            if (s[j] == 'R') R++;
-            else if (s[j] == 'B') B++;
-        }
-    }
+    int x = (N - 1) / 5;
+    int y = (N - 1) % 5;
     
-    cout << ((R > B) ? "TAKAHASHI" : (R < B) ? "AOKI" : "DRAW") << endl;
+    cout << S[x] << S[y] << endl;
     return 0;
 }
