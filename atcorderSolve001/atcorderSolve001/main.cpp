@@ -1,25 +1,26 @@
 #include <iostream>
-#include <math.h>
-#include <iomanip>
-#include <algorithm>
 using namespace std;
 int main()
 {
-    int N;
-    cin >> N;
+    int N, M;
+    cin >> N >> M;
 
-    int a[N];
+    int a[N + M];
+    bool c[N];
     for (int i=0; i<N; i++) {
-        cin >> a[i];
+        a[M + i] = i + 1;
+        c[i] = false;
     }
-    sort(a, a+N, greater<int>());
+    for (int i=0; i<M; i++) {
+        cin >> a[M - 1 - i];
+    }
 
-    int r2 = 0;
-    for (int i=0; i<N; i++) {
-        r2 += a[i] * a[i] * ((i%2 == 1) ? -1 : 1);
+    for (int i=0; i<N + M; i++) {
+        if (c[a[i] - 1] == false) {
+            c[a[i] - 1] = true;
+            cout << a[i] << endl;
+        }
     }
-    
-    cout << fixed << setprecision(10) << (double)r2 * M_PI << endl;
     
     return 0;
 }
