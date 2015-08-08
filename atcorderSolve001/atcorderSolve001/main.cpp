@@ -1,26 +1,33 @@
 #include <iostream>
-#include <math.h>
-#include <iomanip>
+#include <vector>
 #include <algorithm>
+#include <map>
 using namespace std;
 int main()
 {
-    int N;
-    cin >> N;
+    int N, M, S;
+    cin >> N >> M >> S;
 
-    int a[N];
+    vector<pair<int, int>> pairs(N);
     for (int i=0; i<N; i++) {
-        cin >> a[i];
+        int T, K;
+        cin >> T >> K;
+        pairs[i] = make_pair(T, K);
     }
-    // 配列のソート
-    sort(a, a+N, greater<int>());
+    sort(pairs.begin(), pairs.end());
 
-    int r2 = 0;
+    int t = 0, k = 0, tmp = 0;
     for (int i=0; i<N; i++) {
-        r2 += a[i] * a[i] * ((i%2 == 1) ? -1 : 1);
+        if (k >= M) {
+            t += pairs[i].first - tmp;
+        }
+        tmp = pairs[i].first;
+        k += pairs[i].second;
+    }
+    if (k >= M) {
+        t += S - tmp;
     }
     
-    cout << fixed << setprecision(10) << (double)r2 * M_PI << endl;
-    
+    cout << t << endl;
     return 0;
 }
