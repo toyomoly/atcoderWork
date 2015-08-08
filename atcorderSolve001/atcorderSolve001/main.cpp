@@ -12,6 +12,7 @@ int main()
     for (int i=0; i<N; i++) {
         cin >> a[i];
     }
+    // 配列のソート
     sort(a, a+N, greater<int>());
 
     int r2 = 0;
