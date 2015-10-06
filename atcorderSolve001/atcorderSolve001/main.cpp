@@ -2,32 +2,24 @@
 using namespace std;
 int main()
 {
-    int N, R;
-    cin >> N >> R;
+    int cnt = 0;
     
-    string S;
-    cin >> S;
-
-    int T = 0;
-    
-    
-    // idx(N-1)から見て行く
-    // oならOK
-    if (S[N-1] == 'o') {
+    for (int n=0; n<12; n++) {
+        string s;
+        cin >> s;
+        long l = s.length();
         
-    } else {
-        if (N-1<=R) {
-            // 発射で終わり
-            T++;
-        }else{
-            // 進む必要がある
+        bool find = false;
+        for (int i=0; i<l; i++) {
+            if (s[i] == 'r') {
+                find = true;
+            }
+        }
+        if (find) {
+            cnt++;
         }
     }
     
-    
-    // idx(N-2)を見る
-    
-    
-    cout << T << endl;
+    cout << cnt << endl;
     return 0;
 }
