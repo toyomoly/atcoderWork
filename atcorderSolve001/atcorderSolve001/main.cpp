@@ -1,4 +1,5 @@
-#include <iostream>
+#include "bits/stdc++.h"
+// gccでは、#include <bits/stdc++.h> にする
 using namespace std;
 int main()
 {
@@ -6,12 +7,12 @@ int main()
     int a;
     cin >> a;
     // スペース区切りの整数の入力
-    int b,c;
+    int b, c;
     cin >> b >> c;
     // 文字列の入力
     string s;
     cin >> s;
     // 出力
-    cout << (a+b+c) << " " << s << endl;
+    cout << (a + b + c) << " " << s << endl;
     return 0;
 }
