@@ -2,24 +2,14 @@
 using namespace std;
 int main()
 {
-    int cnt = 0;
+    int l, h, n;
+    cin >> l >> h >> n;
     
-    for (int n=0; n<12; n++) {
-        string s;
-        cin >> s;
-        long l = s.length();
-        
-        bool find = false;
-        for (int i=0; i<l; i++) {
-            if (s[i] == 'r') {
-                find = true;
-            }
-        }
-        if (find) {
-            cnt++;
-        }
+    for (int i=0; i<n; i++) {
+        int a;
+        cin >> a;
+        cout << ((a < l) ? (l - a) :
+            (a > h) ? -1 : 0) << endl;
     }
-    
-    cout << cnt << endl;
     return 0;
 }
