@@ -1,11 +1,9 @@
 #include <iostream>
-#include <string>
 using namespace std;
 int main()
 {
-    double a, b, c, d;
-    cin >> a >> b >> c >> d;
-    cout << ((b / a) > (d / c) ? "TAKAHASHI" :
-        (b / a) < (d / c) ? "AOKI" : "DRAW") << endl;
+    int a, d;
+    cin >> a >> d;
+    cout << ((a < d) ? (++a * d) : (a * ++d)) << endl;
     return 0;
 }
