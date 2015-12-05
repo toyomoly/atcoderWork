@@ -9,10 +9,12 @@ int solve(int s, int d, int x) {
     
     if (s % 2 != 0) {
         x++;
+        s++;
     }
     
     if (d % 2 != 0) {
         x++;
+        d--;
     }
     
     return solve(s/2, d/2, x);
