@@ -2,16 +2,19 @@
 using namespace std;
 int main()
 {
-    // 整数の入力
-    int a;
-    cin >> a;
-    // スペース区切りの整数の入力
-    int b,c;
-    cin >> b >> c;
-    // 文字列の入力
-    string s;
-    cin >> s;
-    // 出力
-    cout << (a+b+c) << " " << s << endl;
+    string S;
+    cin >> S;
+    int n = 0;
+    char last = 'O';
+    long l = S.length();
+    for (int i=0; i<l; i++) {
+        if (S[i] != last) {
+            last = S[i];
+            n++;
+        }
+    }
+    int res = ((last == 'O') ? (n - 1) : n);
+    
+    cout << ((res < 0) ? 0 : res) << endl;
     return 0;
 }
