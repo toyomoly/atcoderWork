@@ -2,16 +2,20 @@
 using namespace std;
 int main()
 {
-    // 整数の入力
-    int a;
-    cin >> a;
-    // スペース区切りの整数の入力
-    int b,c;
-    cin >> b >> c;
-    // 文字列の入力
-    string s;
-    cin >> s;
-    // 出力
-    cout << (a+b+c) << " " << s << endl;
+    // 文字列中に含まれる数字を出力する
+    string S;
+    cin >> S;
+    int n = 0;
+    
+    long l = S.length();
+    for (int i=0; i<l; i++) {
+        if ('0' <= (S[i]) && (S[i] <= '9')) {
+            if (n > 0) {
+                n = n * 10;
+            }
+            n += S[i] - '0';
+        }
+    }
+    cout << n << endl;
     return 0;
 }
