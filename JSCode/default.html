@@ -16,25 +16,42 @@ document.getElementById("submit").addEventListener("click", function () {
 
 function Main(input) {
     input = input.split("\n");
-    
-    var ary = [];
+    var c = 1024;
+    var p = [
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
+    ];
     var res = [];
-    input.shift();
     
-    input.forEach(function (t) {
-        var s = t.split(" ");
-        
-        switch (parseInt(s[0])) {
-            case 1:
-                ary.push(parseInt(s[1]));
-                break;
-            case 2:
-                ary.sort(function (a, b) { return a - b; });
-                res.push(ary.splice(parseInt(s[1]) - 1, 1)[0]);
-                break;
+    for (var i = 1, l = input.length; i < l; i++) {
+        var s = input[i].split(" ");
+        var q = parseInt(s[0]);
+        var v = parseInt(s[1]);
+        if (q == 1) {
+            p[parseInt(v/c)].push(v);
+        } else if (q == 2) {
+            var ary;
+            p.some(function (a, k) {
+                if (v > a.length) {
+                    v -= a.length;
+                    return false;
+                } else {
+                    ary = a;
+                    return true;
+                }
+            });
+            ary.sort(function (a, b) { return a - b; });
+            res.push(ary.splice(v - 1, 1)[0]);
         }
-    });
-    
+    }
     console.log(res.join("\n"));
 }
 
