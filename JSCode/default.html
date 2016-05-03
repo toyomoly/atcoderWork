@@ -6,7 +6,9 @@
     <title>javascript</title>
 </head>
 <body>
-<textarea id="input"></textarea>
+<textarea id="input">
+8
+66 52 56 32 27 50 72 23</textarea>
 <button id="submit">submit</button>
 
 <script>
@@ -15,13 +17,17 @@ document.getElementById("submit").addEventListener("click", function () {
 });
 
 function Main(input) {
-    input = input.split(" ");
-    var R = parseInt(input[0]);
-    var D = parseInt(input[1]);
-    
-    var S = Math.PI * R * R;
-    var di = Math.PI * D * 2;
-    console.log(S * di);
+    input = input.split("\n");
+    var n = parseInt(input[0]);
+    var ary = input[1].split(" ");
+    var ary2 = [];
+    for (var i=0,l=ary.length; i<l; i++) {
+        console.log(ary2.length);
+        while (ary2.length > 0 && ary2[ary2.length - 1] < ary[i]) {
+            ary2.pop();
+        }
+        ary2.push(ary[i]);
+    }
 }
 
 //*この行以降は編集しないでください（標準入出力から一度に読み込み、Mainを呼び出します）
