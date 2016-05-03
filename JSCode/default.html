@@ -15,14 +15,13 @@ document.getElementById("submit").addEventListener("click", function () {
 });
 
 function Main(input) {
-    var n = parseInt(input);
-    var sum = n;
+    input = input.split(" ");
+    var R = parseInt(input[0]);
+    var D = parseInt(input[1]);
     
-    for (var i = 1; i < n; i++) {
-        sum += i;
-    }
-    
-    console.log('%d', sum);
+    var S = Math.PI * R * R;
+    var di = Math.PI * D * 2;
+    console.log(S * di);
 }
 
 //*この行以降は編集しないでください（標準入出力から一度に読み込み、Mainを呼び出します）
