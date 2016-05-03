@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>javascript</title>
+</head>
+<body>
+<textarea id="input"></textarea>
+<button id="submit">submit</button>
+
+<script>
+document.getElementById("submit").addEventListener("click", function () {
+    Main(document.getElementById("input").value);
+});
+
+function Main(input) {
+    // 1行目がinput[0], 2行目がinput[1], …に入る
+    input = input.split("\n");
+    tmp = input[1].split(" ");
+    //文字列から10進数に変換するときはparseIntを使います
+    var a = parseInt(input[0], 10);
+    var b = parseInt(tmp[0], 10);
+    var c = parseInt(tmp[1], 10);
+    var s = input[2];
+    //出力
+    console.log('%d %s',a+b+c,s);
+}
+
+//*この行以降は編集しないでください（標準入出力から一度に読み込み、Mainを呼び出します）
+//Main(require("fs").readFileSync("/dev/stdin", "utf8"));
+</script>
+</body>
+</html>
