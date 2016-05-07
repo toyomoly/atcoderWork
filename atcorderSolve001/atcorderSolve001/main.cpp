@@ -2,26 +2,37 @@
 using namespace std;
 int main()
 {
-    int N, K;
-    cin >> N >> K;
+    int H, W;
+    cin >> H >> W;
     
-    int x = (N >= 2 * K) ? K : (N - K + 1);
-    unsigned long long sum = 0;
+    int A[W][H];
     
-    for (int i=1; i<x; i++) {
-        int a = 0;
-        cin >> a;
-        sum += a * i;
+    for (int x=0; x<W; x++) {
+        for (int y=0; y<H; y++) {
+            int a;
+            cin >> a;
+            A[x][y] = a;
+        }
     }
-    for (int i=0; i<(N - 2 * (x-1)); i++) {
-        int a = 0;
-        cin >> a;
-        sum += a * x;
-    }
-    for (int i=x-1; i>0; i--) {
-        int a = 0;
-        cin >> a;
-        sum += a * i;
+    
+    int sum;
+    
+    for (int x=0; x<W; x++) {
+        for (int y=0; y<H; y++) {
+            // 頂上を見つける
+            if (
+                ((x == 0) || (A[x][y] > A[x-1][y]))
+                && ((x == W-1) || (A[x][y] > A[x+1][y]))
+                && ((y == 0) || (A[x][y] > A[x][y-1]))
+                && ((y == H-1) || (A[x][y] > A[x][y+1]))
+                ) {
+                // その頂点からの下る経路
+                
+                
+                
+                sum += 0;
+            }
+        }
     }
     
     cout << sum << endl;
