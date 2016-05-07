@@ -2,26 +2,28 @@
 using namespace std;
 int main()
 {
-    int N, Q;
-    cin >> N >> Q;
+    int N, K;
+    cin >> N >> K;
     
-    int A[N];
+    int x = (N >= 2 * K) ? K : (N - K + 1);
+    unsigned long long sum = 0;
     
-    for (int i=0; i<N; i++) {
-        A[i] = 0;
+    for (int i=1; i<x; i++) {
+        int a = 0;
+        cin >> a;
+        sum += a * i;
+    }
+    for (int i=0; i<(N - 2 * (x-1)); i++) {
+        int a = 0;
+        cin >> a;
+        sum += a * x;
+    }
+    for (int i=x-1; i>0; i--) {
+        int a = 0;
+        cin >> a;
+        sum += a * i;
     }
     
-    for (int i=0; i<Q; i++) {
-        int L, R, T;
-        cin >> L >> R >> T;
-        
-        for (int j=(L-1); j<R; j++) {
-            A[j] = T;
-        }
-    }
-
-    for (int i=0; i<N; i++) {
-        cout << A[i] << endl;
-    }
+    cout << sum << endl;
     return 0;
 }
