@@ -1,43 +1,51 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
+
+bool comp(const pair<long long, long long> &lhs,  const pair<long long, long long> &rhs) {
+    return lhs.second > rhs.second;
+}
+
 int main()
 {
-    string S;
-    cin >> S;
-    int n = 0;
-    int a[26];
-    for (int i=0; i<26; i++) {
-        a[i] = 0;
-    }
-    // ペアの文字の数
-    int p = 0;
-    // 奇数の余りの文字の数
-    int q = 0;
+    int N;
+    cin >> N;
+    long long T = 0;
+    long long TMax = 0;
+    vector<pair<long long, long long>> before(N);
+    vector<pair<long long, long long>> after(N);
     
-    long l = S.length();
-    for (long i=0; i<l; i++) {
-        int x = S[i]- 'a';
-        if (a[x] == 0) {
-            a[x]++;
+    for (int i=0; i<N; i++) {
+        long long a, b;
+        cin >> a >> b;
+        if (a < b) {
+            before[i] = make_pair(a, b);
+            after[i] = make_pair(0, 0);
         } else {
-            a[x] = 0;
-            p++;
+            before[i] = make_pair(0, 0);
+            after[i] = make_pair(a, b);
         }
     }
-    for (int i=0; i<26; i++) {
-        if (a[i] == 1) {
-            q++;
-        }
-    }
+    sort(before.begin(), before.end());
+    sort(after.begin(), after.end(), comp);
     
-    if (q == 0) {
-        cout << l << endl;
-    } else if (p < q) {
-        cout << 1 << endl;
-    } else {
-        cout << 1 + (p / q) * 2 << endl;
+    for (int i=0; i<N; i++) {
+        T += before[i].first;
+        if (TMax < T) {
+            TMax = T;
+        }
+        T -= before[i].second;
     }
+    for (int i=0; i<N; i++) {
+        T += after[i].first;
+        if (TMax < T) {
+            TMax = T;
+        }
+        T -= after[i].second;
+    }
+    cout << TMax << endl;
+    
     return 0;
 }
