@@ -1,22 +1,47 @@
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
+
 int main()
 {
-    int H, W;
-    cin >> H >> W;
-    int n = 0;
-    
-    for (int i=0; i<H; i++) {
-        for (int j=1; j<W; j++) {
-            n++;
+    double L, X, Y, S, D;
+    cin >> L >> X >> Y >> S >> D;
+
+    if (S < D) {
+        // SからDへ行く
+        // 0 < S < D < L
+        // D - S
+        // L + S - D  reverse
+        double v1 = Y + X;
+        double t1 = (D - S) / v1;
+        
+        double v2 = Y - X;
+        if (v2 > 0) {
+            double t2 = (L + S - D) / v2;
+            if (t2 < t1) {
+                t1 = t2;
+            }
         }
-    }
-    for (int i=0; i<W; i++) {
-        for (int j=1; j<H; j++) {
-            n++;
+        
+        cout << fixed << setprecision(10) << t1 << endl;;
+    } else {
+        // 0 < D < S < L
+        // L + D - S
+        // S - D reverse
+        double v1 = Y + X;
+        double t1 = (L + D - S) / v1;
+        
+        double v2 = Y - X;
+        if (v2 > 0) {
+            double t2 = (S - D) / v2;
+            if (t2 < t1) {
+                t1 = t2;
+            }
         }
+        
+        cout << fixed << setprecision(10) << t1 << endl;;
     }
     
-    cout << n << endl;
     return 0;
 }
