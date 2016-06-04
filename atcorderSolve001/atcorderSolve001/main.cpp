@@ -4,10 +4,29 @@ using namespace std;
 
 int main()
 {
-    int H1, W1, H2, W2;
-    cin >> H1 >> W1 >> H2 >> W2;
+    int N;
+    cin >> N;
 
-    cout << ((H1 == H2 || H1 == W2 || W1 == H2 || W1 == W2) ? "YES" : "NO") << endl;
+    int n = 0;
+    int d = 0;
+    long long s = 0;
+    
+    for (int i = 0; i < N; i++) {
+        int a;
+        cin >> a;
+        
+        if (n < a) {
+        } else {
+            n = 0;
+            d = 0;
+        }
+        
+        n = a;
+        d++;
+        s += d;
+    }
+    
+    cout << s << endl;
     
     return 0;
 }
