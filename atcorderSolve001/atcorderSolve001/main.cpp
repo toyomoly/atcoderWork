@@ -4,10 +4,10 @@ using namespace std;
 
 int main()
 {
-    string S;
-    cin >> S;
+    int H1, W1, H2, W2;
+    cin >> H1 >> W1 >> H2 >> W2;
 
-    cout << ((S[S.length() - 1] == 'T') ? "YES" : "NO") << endl;
+    cout << ((H1 == H2 || H1 == W2 || W1 == H2 || W1 == W2) ? "YES" : "NO") << endl;
     
     return 0;
 }
