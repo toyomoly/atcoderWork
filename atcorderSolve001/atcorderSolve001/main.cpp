@@ -12,25 +12,39 @@ int N;
 //    return (lhs.first > 0) && (lhs.first < rhs.first);
 //}
 
-int loop(int i, int nw, int nh, int cnt) {
+int loop(int i, int ni, int nw, int nh, int cnt) {
 
     if (i == N) {
         return cnt;
     } else {
         if ((nw < box[i].first) && (nh < box[i].second)) {
-            // この箱に入れた場合と入れない場合のmax
-            int m1 = loop(i + 1, nw, nh, cnt);
+            // この箱に入れない場合
+            int m1 = 0;
+            if ((ni > -1) && (aCnt[ni] > -1)) {
+                m1 = aCnt[ni] + cnt;
+            } else {
+                m1 = loop(i + 1, ni, nw, nh, cnt);
+            }
+            
+            // この箱に入れる場合
             int m2 = 0;
             if (aCnt[i] > -1) {
                 m2 = aCnt[i] + cnt;
             } else {
-                m2 = loop(i + 1, box[i].first, box[i].second, cnt + 1);
+                m2 = loop(i + 1, i, box[i].first, box[i].second, cnt + 1);
                 aCnt[i] = m2 - cnt;
             }
+            // 大きい方
             return max(m1 , m2);
         } else {
             // この箱には入らない
-            return loop(i + 1, nw, nh, cnt);
+            int m1 = 0;
+            if ((ni > -1) && (aCnt[ni] > -1)) {
+                m1 = aCnt[ni] + cnt;
+            } else {
+                m1 = loop(i + 1, ni, nw, nh, cnt);
+            }
+            return m1;
         }
     }
 }
@@ -51,7 +65,7 @@ int main()
     
     sort(box.begin(), box.end());
     
-    cout << loop(0, 0, 0, 0) << endl;
+    cout << loop(0, -1, 0, 0, 0) << endl;
     
     return 0;
 }
