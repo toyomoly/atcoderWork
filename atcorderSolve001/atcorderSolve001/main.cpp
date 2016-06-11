@@ -4,49 +4,35 @@
 
 using namespace std;
 
-vector<pair<int, int>> box(100000);
-vector<int> aCnt(100001);
+vector<pair<int, int>> box(262144);
+vector<int> aCnt(262144);
 int N;
 
-//bool comp(const pair<int, int> &lhs,  const pair<int, int> &rhs) {
-//    return (lhs.first > 0) && (lhs.first < rhs.first);
-//}
-
-int loop(int i, int ni, int nw, int nh, int cnt) {
-
-    if (i == N) {
-        return cnt;
-    } else {
-        if ((nw < box[i].first) && (nh < box[i].second)) {
-            // この箱に入れない場合
-            int m1 = 0;
-            if ((ni > -1) && (aCnt[ni] > -1)) {
-                m1 = aCnt[ni] + cnt;
-            } else {
-                m1 = loop(i + 1, ni, nw, nh, cnt);
-            }
-            
-            // この箱に入れる場合
-            int m2 = 0;
-            if (aCnt[i] > -1) {
-                m2 = aCnt[i] + cnt;
-            } else {
-                m2 = loop(i + 1, i, box[i].first, box[i].second, cnt + 1);
-                aCnt[i] = m2 - cnt;
-            }
-            // 大きい方
-            return max(m1 , m2);
-        } else {
-            // この箱には入らない
-            int m1 = 0;
-            if ((ni > -1) && (aCnt[ni] > -1)) {
-                m1 = aCnt[ni] + cnt;
-            } else {
-                m1 = loop(i + 1, ni, nw, nh, cnt);
-            }
-            return m1;
+void update(int k, int s){
+    if (aCnt[k] < s) {
+        aCnt[k] = s;
+        if (k > 0) {
+            update((k - 1) / 2, s);
         }
     }
+}
+
+int get(int l, int r, int k, int st, int ed){
+    
+    if (r <= st || ed <= l) {
+        return 0;
+    }
+    if (l <= st && ed <= r) {
+        return aCnt[k];
+    }
+    
+    int md = (st + ed) / 2;
+    return max(get(l, r, k*2+1, st, md), get(l, r, k*2+2, md, ed));
+}
+
+// wの昇順、hの降順
+bool comp(const pair<int, int> &lhs,  const pair<int, int> &rhs) {
+    return (lhs.first == rhs.first) ? (lhs.second > rhs.second) : (lhs.first < rhs.first);
 }
 
 int main()
@@ -60,12 +46,20 @@ int main()
         scanf("%d", &h);
         
         box[i] = make_pair(w, h);
-        aCnt[i] = -1;
     }
     
-    sort(box.begin(), box.end());
+    for (int i = 0; i < 262144; i++) {
+        aCnt[i] = 0;
+    }
     
-    cout << loop(0, -1, 0, 0, 0) << endl;
+    sort(box.begin(), box.end(), comp);
+    
+    for (int i = 0; i < N; i++) {
+        int s = get(0, box[i].second - 1, 0, 0, 131072);
+        update(131071 + box[i].second - 1, s + 1);
+    }
+    
+    cout << aCnt[0] << endl;
     
     return 0;
 }
