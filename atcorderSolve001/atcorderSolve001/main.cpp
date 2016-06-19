@@ -1,13 +1,16 @@
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
 int main()
 {
-    int A, B, C;
-    cin >> A >> B >> C;
+    int X;
+    cin >> X;
 
-    cout << ((A*B*2) + (B*C*2) + (C*A*2)) << endl;
+    int N = sqrt(sqrt(X));
+    
+    cout << N << endl;
     
     return 0;
 }
