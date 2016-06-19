@@ -4,10 +4,10 @@ using namespace std;
 
 int main()
 {
-    string S;
-    cin >> S;
+    int A, B, C;
+    cin >> A >> B >> C;
 
-    cout << ((S[S.length() - 1] == 'T') ? "YES" : "NO") << endl;
+    cout << ((A*B*2) + (B*C*2) + (C*A*2)) << endl;
     
     return 0;
 }
