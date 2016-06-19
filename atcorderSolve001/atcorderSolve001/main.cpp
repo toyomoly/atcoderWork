@@ -9,37 +9,19 @@ int a[10000];
 void check(int i, int j) {
     bool b = true;
     if (i > 0) {
-        if (j > 0) {
-            if (a[H*(i-1) + (j-1)] == 0) { b = false; }
-        }
-        
-        if (a[H*(i-1) + (j)] == 0) { b = false; }
-        
-        if (j < (W-1)) {
-            if (a[H*(i-1) + (j+1)] == 0) { b = false; }
-        }
+        if (j > 0) {     if (a[H*(i-1) + (j-1)] == 0) { b = false; } }
+                         if (a[H*(i-1) + (j  )] == 0) { b = false; }
+        if (j < (W-1)) { if (a[H*(i-1) + (j+1)] == 0) { b = false; } }
     }
 
-    if (j > 0) {
-        if (a[H*(i) + (j-1)] == 0) { b = false; }
-    }
-    
-    if (a[H*(i) + (j)] == 0) { b = false; }
-    
-    if (j < (W-1)) {
-        if (a[H*(i) + (j+1)] == 0) { b = false; }
-    }
+        if (j > 0) {     if (a[H*(i  ) + (j-1)] == 0) { b = false; } }
+                         if (a[H*(i  ) + (j  )] == 0) { b = false; }
+        if (j < (W-1)) { if (a[H*(i  ) + (j+1)] == 0) { b = false; } }
 
     if (i < (H-1)) {
-        if (j > 0) {
-            if (a[H*(i+1) + (j-1)] == 0) { b = false; }
-        }
-        
-        if (a[H*(i+1) + (j)] == 0) { b = false; }
-        
-        if (j < (W-1)) {
-            if (a[H*(i+1) + (j+1)] == 0) { b = false; }
-        }
+        if (j > 0) {     if (a[H*(i+1) + (j-1)] == 0) { b = false; } }
+                         if (a[H*(i+1) + (j  )] == 0) { b = false; }
+        if (j < (W-1)) { if (a[H*(i+1) + (j+1)] == 0) { b = false; } }
     }
     
     if (b) {
