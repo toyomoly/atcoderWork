@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>javascript</title>
+</head>
+<body>
+<textarea id="input"></textarea>
+<button id="submit">submit</button>
+
+<script>
+document.getElementById("submit").addEventListener("click", function () {
+    Main(document.getElementById("input").value);
+});
+
+function Main(input) {
+    var n = parseInt(input);
+    var sum = n;
+    
+    for (var i = 1; i < n; i++) {
+        sum += i;
+    }
+    
+    console.log('%d', sum);
+}
+
+//*この行以降は編集しないでください（標準入出力から一度に読み込み、Mainを呼び出します）
+//Main(require("fs").readFileSync("/dev/stdin", "utf8"));
+</script>
+</body>
+</html>
