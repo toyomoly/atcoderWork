@@ -16,57 +16,51 @@ namespace ConsoleApp1
             int M = Int32.Parse(NM[1]);
 
             ls = new int[N];
+            for (int i = 0; i < N; i++)
+            {
+                ls[i] = -1;
+            }
 
             for (int i = 0; i < M; i++)
             {
                 var AB = Console.ReadLine().Split();
-                int A = Int32.Parse(AB[0]);
-                int B = Int32.Parse(AB[1]);
+                int A = Int32.Parse(AB[0]) - 1;
+                int B = Int32.Parse(AB[1]) - 1;
 
                 bool a = hasFriend(A);
                 bool b = hasFriend(B);
 
+                int C = A;
+                int D = B;
+
                 if (a && b)
                 {
-                    int C = getParent(A);
-                    int D = getParent(B);
+                    C = getParent(A);
+                    D = getParent(B);
 
-                    if (C != D)
+                    if (C == D)
                     {
-                        ls[C - 1] += ls[D - 1]; // 人数加算
-                        setParent(D, C);
+                        continue;
                     }
                 }
                 else if (a)
                 {
-                    int C = getParent(A);
-                    int D = B;
-
-                    ls[C - 1] -= 1; // 人数加算
-                    setParent(D, C);
+                    C = getParent(A);
                 }
                 else if (b)
                 {
-                    int C = getParent(B);
-                    int D = A;
+                    C = getParent(B);
+                    D = A;
+                }
 
-                    ls[C - 1] -= 1; // 人数加算
-                    setParent(D, C);
-                }
-                else
-                {
-                    ls[A - 1] = -1; // 人数加算
-                    setParent(B, A);
-                }
+                ls[C] += ls[D]; // 人数加算
+                ls[D] = C; // setParent
             }
 
             int max = 1;
             for (int i = 0; i < N; i++)
             {
-                if (ls[i] < 0)
-                {
-                    max = Math.Max(max, -ls[i] + 1);
-                }
+                max = Math.Max(max, -ls[i]);
             }
 
             Console.WriteLine(max);
@@ -74,21 +68,17 @@ namespace ConsoleApp1
 
         static int getParent(int A)
         {
-            if (ls[A - 1] > 0)
+            if (ls[A] > -1)
             {
-                return getParent(ls[A - 1]);
+                ls[A] = getParent(ls[A]);
+                return ls[A];
             }
             return A;
         }
 
-        static void setParent(int A, int B)
-        {
-            ls[A - 1] = B;
-        }
-
         static bool hasFriend(int A)
         {
-            return (ls[A - 1] != 0);
+            return (ls[A] != -1);
         }
     }
 }
