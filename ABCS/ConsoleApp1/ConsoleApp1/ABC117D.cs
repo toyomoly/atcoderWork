@@ -6,81 +6,89 @@ namespace ConsoleApp1
     class ABC117D
     {
         // https://atcoder.jp/contests/abc177/tasks/abc177_d
+
+        static int[] ls;
+
         static void Main(string[] args)
         {
             var NM = Console.ReadLine().Split();
             int N = Int32.Parse(NM[0]);
             int M = Int32.Parse(NM[1]);
 
-            if (M > 0)
-            {
-                var hs = new HashSet<int>();
-                var ns = new HashSet<(int, int)>();
+            ls = new int[N];
 
+            for (int i = 0; i < M; i++)
+            {
                 var AB = Console.ReadLine().Split();
                 int A = Int32.Parse(AB[0]);
                 int B = Int32.Parse(AB[1]);
 
-                hs.Add(A);
-                hs.Add(B);
+                bool a = hasFriend(A);
+                bool b = hasFriend(B);
 
-                for (int i = 1; i < M; i++)
+                if (a && b)
                 {
-                    AB = Console.ReadLine().Split();
-                    A = Int32.Parse(AB[0]);
-                    B = Int32.Parse(AB[1]);
+                    int C = getParent(A);
+                    int D = getParent(B);
 
-                    if (hs.Contains(A) || hs.Contains(B))
+                    if (C != D)
                     {
-                        hs.Add(A);
-                        hs.Add(B);
-                    }
-                    else
-                    {
-                        ns.Add((A, B));
+                        ls[C - 1] += ls[D - 1]; // 人数加算
+                        setParent(D, C);
                     }
                 }
-
-                var max = hs.Count;
-                while (max <= ns.Count)
+                else if (a)
                 {
-                    hs = new HashSet<int>();
-                    var ns2 = new HashSet<(int, int)>();
+                    int C = getParent(A);
+                    int D = B;
 
-                    foreach (var item in ns)
-                    {
-                        A = item.Item1;
-                        B = item.Item2;
-                        hs.Add(A);
-                        hs.Add(B);
-                        break;
-                    }
-                    foreach (var item in ns)
-                    {
-                        A = item.Item1;
-                        B = item.Item2;
-
-                        if (hs.Contains(A) || hs.Contains(B))
-                        {
-                            hs.Add(A);
-                            hs.Add(B);
-                        }
-                        else
-                        {
-                            ns2.Add((A, B));
-                        }
-                    }
-
-                    max = Math.Max(max, hs.Count);
-                    ns = ns2;
+                    ls[C - 1] -= 1; // 人数加算
+                    setParent(D, C);
                 }
+                else if (b)
+                {
+                    int C = getParent(B);
+                    int D = A;
 
-                Console.WriteLine(max);
+                    ls[C - 1] -= 1; // 人数加算
+                    setParent(D, C);
+                }
+                else
+                {
+                    ls[A - 1] = -1; // 人数加算
+                    setParent(B, A);
+                }
             }
-            else
+
+            int max = 1;
+            for (int i = 0; i < N; i++)
             {
-                Console.WriteLine(1);
+                if (ls[i] < 0)
+                {
+                    max = Math.Max(max, -ls[i] + 1);
+                }
             }
+
+            Console.WriteLine(max);
+        }
+
+        static int getParent(int A)
+        {
+            if (ls[A - 1] > 0)
+            {
+                return getParent(ls[A - 1]);
+            }
+            return A;
+        }
+
+        static void setParent(int A, int B)
+        {
+            ls[A - 1] = B;
+        }
+
+        static bool hasFriend(int A)
+        {
+            return (ls[A - 1] != 0);
         }
     }
 }
