@@ -2,7 +2,7 @@
 
 namespace ConsoleApp1
 {
-    class ABC117C
+    class ABC177C
     {
         // https://atcoder.jp/contests/abc177/tasks/abc177_c
         static void Main(string[] args)
