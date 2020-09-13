@@ -6,19 +6,15 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var DTS = Console.ReadLine().Split();
-            int D = Int32.Parse(DTS[0]);
-            int T = Int32.Parse(DTS[1]);
-            int S = Int32.Parse(DTS[2]);
+            int x = Int32.Parse(Console.ReadLine());
 
-            // Dメートル、T分後、分速Sメートル
-            if (D <= T * S)
+            if (x > 0)
             {
-                Console.WriteLine("Yes");
+                Console.WriteLine("0");
             }
             else
             {
-                Console.WriteLine("No");
+                Console.WriteLine("1");
             }
         }
     }
