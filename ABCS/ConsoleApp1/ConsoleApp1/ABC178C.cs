@@ -4,26 +4,33 @@ namespace ConsoleApp1
 {
     class ABC178C
     {
-        // https://atcoder.jp/contests/abc177/tasks/abc177_c
+        // https://atcoder.jp/contests/abc178/tasks/abc178_c
         static void Main(string[] args)
         {
-            const UInt64 m = 1000000007;
+            const long m = 1000000007;
 
             uint N = uint.Parse(Console.ReadLine());
-            var items = Console.ReadLine().Split();
 
-            UInt64[] A = Array.ConvertAll(items, UInt64.Parse);
+            long result = 0;
+            long r10 = 10;
+            long r9 = 9;
+            long r8 = 8;
 
-            UInt64 p = 0;
-            UInt64 sum = 0;
-
-            for (var i = N - 1; i > 0; i--)
+            if (N > 1)
             {
-                p = (p + A[i]) % m;
-                sum = (sum + p * A[i - 1]) % m;
+                // 10^N - 9^N * 2 + 8^N
+
+                for (int i = 1; i < N; i++)
+                {
+                    r10 = (r10 * 10) % m;
+                    r9 = (r9 * 9) % m;
+                    r8 = (r8 * 8) % m;
+                }
+
+                result = (r10 - r9 - r9 + r8 + m + m) % m;
             }
 
-            Console.WriteLine(sum);
+            Console.WriteLine(result);
         }
     }
 }

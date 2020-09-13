@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <StartupObject>ConsoleApp1.ABC178B</StartupObject>
+    <StartupObject>ConsoleApp1.ABC178C</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
