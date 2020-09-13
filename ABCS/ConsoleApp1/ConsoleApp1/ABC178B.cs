@@ -4,39 +4,20 @@ namespace ConsoleApp1
 {
     class ABC178B
     {
-        // https://atcoder.jp/contests/abc177/tasks/abc177_b
+        // https://atcoder.jp/contests/abc178/tasks/abc178_b
         static void Main(string[] args)
         {
-            var S = Console.ReadLine().ToCharArray();
-            var T = Console.ReadLine().ToCharArray();
+            var items = Console.ReadLine().Split();
+            Int64 a = Int64.Parse(items[0]);
+            Int64 b = Int64.Parse(items[1]);
+            Int64 c = Int64.Parse(items[2]);
+            Int64 d = Int64.Parse(items[3]);
 
-            var max = 0;
+            Int64 max = Math.Max(a * c, a * d);
+            max = Math.Max(max, b * c);
+            max = Math.Max(max, b * d);
 
-            for (int i = 0; i < S.Length - T.Length + 1; i++)
-            {
-                int a = comp(S, T, i);
-                if (a > max)
-                {
-                    max = a;
-                }
-            }
-
-            Console.WriteLine(T.Length - max);
-        }
-
-        static int comp(char[] S, char[] T, int i)
-        {
-            var c = 0;
-
-            for (int j = 0; j < T.Length; j++)
-            {
-                if (S[j + i] == T[j])
-                {
-                    c++;
-                }
-            }
-
-            return c;
+            Console.WriteLine(max);
         }
     }
 }
