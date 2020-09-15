@@ -5,80 +5,67 @@ namespace ConsoleApp1
 {
     class ABC178D
     {
-        // https://atcoder.jp/contests/abc177/tasks/abc177_d
+        // https://atcoder.jp/contests/abc178/tasks/abc178_d
 
-        static int[] ls;
+        const long m = 1000000007;
+        static long[] a = new long[2001];
 
         static void Main(string[] args)
         {
-            var NM = Console.ReadLine().Split();
-            int N = Int32.Parse(NM[0]);
-            int M = Int32.Parse(NM[1]);
+            int S = Int32.Parse(Console.ReadLine());
 
-            ls = new int[N];
-            for (int i = 0; i < N; i++)
+            if (S < 3)
             {
-                ls[i] = -1;
+                Console.WriteLine(0);
+            }
+            else
+            {
+                Console.WriteLine(sub(S));
             }
 
-            for (int i = 0; i < M; i++)
-            {
-                var AB = Console.ReadLine().Split();
-                int A = Int32.Parse(AB[0]) - 1;
-                int B = Int32.Parse(AB[1]) - 1;
+            // 8 ->
+            //   -0: [8]
+            //   -3: [5]
+            //   -4: [4]
+            //   -5: [3]
 
-                bool a = hasFriend(A);
-                bool b = hasFriend(B);
+            // 9 ->
+            //   -0: [9]
+            //   -3: [3, 3], [6]
+            //   -4: [5]
+            //   -5: [4]
+            //   -6: [3]
 
-                int C = A;
-                int D = B;
 
-                if (a && b)
-                {
-                    C = getParent(A);
-                    D = getParent(B);
-
-                    if (C == D)
-                    {
-                        continue;
-                    }
-                }
-                else if (a)
-                {
-                    C = getParent(A);
-                }
-                else if (b)
-                {
-                    C = getParent(B);
-                    D = A;
-                }
-
-                ls[C] += ls[D]; // 人数加算
-                ls[D] = C; // setParent
-            }
-
-            int max = 1;
-            for (int i = 0; i < N; i++)
-            {
-                max = Math.Max(max, -ls[i]);
-            }
-
-            Console.WriteLine(max);
+            // 10 -> 
+            //   -0: [10]
+            //   -3: [3, 4], [4, 3], [7]
+            //   -4: [3, 3], [6]
+            //   -5: [5]
+            //   -6: [4]
+            //   -7: [3]
         }
 
-        static int getParent(int A)
+        static long sub(int N)
         {
-            if (ls[A] > -1)
+            if (a[N] > 0)
             {
-                ls[A] = getParent(ls[A]);
-                return ls[A];
+                return a[N];
             }
-            return A;
-        }
 
-        static bool hasFriend(int A)
-        {
-            return (ls[A] != -1);
+            long result = 1;
+
+            if (N >= 6)
+            {
+                for (int i = 3; i < N - 2; i++)
+                {
+                    result += sub(N - i);
+                    result %= m;
+                }
+            }
+
+            a[N] = result;
+            return result;
         }
     }
 }
