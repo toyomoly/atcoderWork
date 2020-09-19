@@ -7,9 +7,11 @@ namespace ConsoleApp1
     {
         // https://atcoder.jp/contests/abc179/tasks/abc179_d
 
-        const long m = 998244353;
-        static long[] a = new long[200001];
-        static SortedSet<long> S = new SortedSet<long>();
+        const int m = 998244353;
+        static int[] a = new int[200001];
+        static int[] sum = new int[200001];
+        static int[] L = new int[10];
+        static int[] R = new int[10];
         static int N = 0;
 
         static void Main(string[] args)
@@ -21,40 +23,27 @@ namespace ConsoleApp1
             for (int i = 0; i < K; i++)
             {
                 var LR = Console.ReadLine().Split();
-                long L = Int64.Parse(LR[0]);
-                long R = Int64.Parse(LR[1]);
-                for (long j = L; j <= R; j++)
-                {
-                    S.Add(j);
-                }
+                L[i] = Int32.Parse(LR[0]);
+                R[i] = Int32.Parse(LR[1]);
             }
 
-            for (int i = N; i > 0; i--)
+            a[1] = 1;
+            sum[1] = 1;
+            for (int i = 2; i <= N; i++)
             {
-                a[i] = sub(i);
+                for (int j = 0; j < K; j++)
+                {
+                    int li = Math.Max(i - R[j] - 1, 0);
+                    int ri = i - L[j];
+                    if (ri < 0) continue;
+                    a[i] = (a[i] + sum[ri] - sum[li]) % m;
+                    a[i] = (a[i] + m) % m;
+                }
+                sum[i] = (sum[i - 1] + a[i]) % m;
             }
 
-            Console.WriteLine(a[1]);
+            Console.WriteLine(a[N]);
         }
 
-        static long sub(int x)
-        {
-            long result = 0;
-
-            foreach (var d in S)
-            {
-                if (x + d == N)
-                {
-                    result++;
-                }
-                else if (x + d < N)
-                {
-                    result += a[x + d];
-                    result %= m;
-                }
-            }
-
-            return result % m;
-        }
     }
 }
