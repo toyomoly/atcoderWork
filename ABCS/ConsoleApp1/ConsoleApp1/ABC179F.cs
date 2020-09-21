@@ -9,6 +9,8 @@ namespace ConsoleApp1
 
         static int[] X = new int[200001];
         static int[] Y = new int[200001];
+        static int minX;
+        static int minY;
         static long N;
 
         static void Main(string[] args)
@@ -18,6 +20,8 @@ namespace ConsoleApp1
             long Q = Int64.Parse(items[1]);
 
             long sum = N * N - (N * 4) + 4;
+            minX = (int)N;
+            minY = (int)N;
 
             for (int i = 0; i < N; i++)
             {
@@ -46,32 +50,38 @@ namespace ConsoleApp1
 
         static int reverseCol(int x)
         {
-            int i = 2;
-
-            // reverse to Y[x]
-            while (i < Y[x])
-            {
-                X[i] = Math.Min(X[i], x);
-                i++;
-            }
             int count = Math.Max(Y[x] - 2, 0);
-            Y[x] = 1;
+
+            if (x < minX)
+            {
+                count = Math.Max(minY - 2, 0);
+
+                for (int i = x; i < minX; i++)
+                {
+                    Y[i] = minY;
+                }
+
+                minX = x;
+            }
 
             return count;
         }
 
         static int reverseRow(int y)
         {
-            int i = 2;
-
-            // reverse to X[y]
-            while (i < X[y])
-            {
-                Y[i] = Math.Min(Y[i], y);
-                i++;
-            }
             int count = Math.Max(X[y] - 2, 0);
-            X[y] = 1;
+
+            if (y < minY)
+            {
+                count = Math.Max(minX - 2, 0);
+
+                for (int i = y; i < minY; i++)
+                {
+                    X[i] = minX;
+                }
+
+                minY = y;
+            }
 
             return count;
         }
